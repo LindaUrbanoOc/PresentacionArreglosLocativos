@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arreglos Locativos - ONE CONTACT INTERNACIONAL S.A.S.</title>
+    <style>
+        :root {
+            --primary-color: #0078d4;
+            --secondary-color: #ff6600;
+            --dark-color: #333333;
+            --light-color: #f8f9fa;
+            --accent-color: #17a2b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #f0f2f5;
+        }
+        
+        .slide-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: none;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .slide-container.active {
+            display: block;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: white;
+            margin: 0;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 10px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #0055aa;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .slide-number {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .two-column {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .column {
+            flex: 1;
+        }
+        
+        .highlight-box {
+            background-color: #f0f8ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .logo {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .logo img {
+            max-width: 250px;
+            height: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .menu-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        
+        .menu-btn {
+            padding: 8px 15px;
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .menu-btn:hover, .menu-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+            background: var(--dark-color);
+            color: white;
+            border-radius: 10px;
+        }
+
+        footer .logo img {
+            max-width: 80px;
+            height: auto;
+            margin-right: 15px;
+        }
+
+        .example-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .example-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+        }
+
+        .example-body {
+            padding: 15px;
+        }
+
+        .example-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+        }
+        
+        @media (max-width: 768px) {
+            .two-column {
+                flex-direction: column;
+            }
+            
+            .menu-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .slide-container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation">
+        <button id="prevBtn" onclick="changeSlide(-1)" disabled>Anterior</button>
+        <div id="slideNumber" class="slide-number">Diapositiva 1 de 8</div>
+        <button id="nextBtn" onclick="changeSlide(1)">Siguiente</button>
+    </div>
+    
+    <div class="menu-buttons">
+        <button class="menu-btn" onclick="showSlide(0)">Inicio</button>
+        <button class="menu-btn" onclick="showSlide(1)">Definición</button>
+        <button class="menu-btn" onclick="showSlide(2)">Marco normativo</button>
+        <button class="menu-btn" onclick="showSlide(3)">Responsabilidades</button>
+        <button class="menu-btn" onclick="showSlide(4)">Sede Barranquilla</button>
+        <button class="menu-btn" onclick="showSlide(5)">Sede Bogotá</button>
+        <button class="menu-btn" onclick="showSlide(6)">Sede Medellín</button>
+        <button class="menu-btn" onclick="showSlide(7)">Plan de acción</button>
+    </div>
+
+    <!-- Slide 1: Portada -->
+    <div class="slide-container active" id="slide1">
+        <div class="logo">
+            <img src="logo-onecontact.png" alt="ONE CONTACT - Grupo Migesa" style="max-width: 250px; height: auto; margin-bottom: 20px;" />
+        </div>
+        <div class="header">
+            <h1>Arreglos Locativos</h1>
+            <p>ONE CONTACT INTERNACIONAL S.A.S.</p>
+            <p style="font-size: 1rem; margin-top: 10px;">Informe generado por Talento Humano</p>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <p>Informe de inspecciones y plan de mantenimiento</p>
+            <p style="font-style: italic; margin-top: 30px;">Abril 2025</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: Definición de arreglos locativos -->
+    <div class="slide-container" id="slide2">
+        <h2>1. Definición de arreglos locativos</h2>
+        
+        <h3>¿Qué son los arreglos locativos?</h3>
+        <p>Los arreglos locativos son obras de mantenimiento o reparación realizadas en inmuebles que:</p>
+        <ul>
+            <li><strong>No alteran</strong> el diseño estructural ni usos vigentes</li>
+            <li><strong>No se clasifican</strong> como ampliación o modificación</li>
+            <li><strong>Buscan conservar</strong> o mejorar las condiciones habitacionales</li>
+        </ul>
+        
+        <h3>Ejemplos de arreglos locativos en ONE CONTACT:</h3>
+        <div class="two-column">
+            <div class="column">
+                <ul>
+                    <li>Reparación de enchufes eléctricos</li>
+                    <li>Mantenimiento de aires acondicionados</li>
+                    <li>Reparación de cerraduras</li>
+                    <li>Instalación de puertas internas</li>
+                </ul>
+            </div>
+            <div class="column">
+                <ul>
+                    <li>Reparación de instalaciones sanitarias</li>
+                    <li>Cambio y mantenimiento de mobiliario</li>
+                    <li>Arreglo de filtraciones en techos</li>
+                    <li>Reparación de rejillas de ventilación</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="highlight-box">
+            <p>Los arreglos locativos son fundamentales para preservar la seguridad, funcionalidad y condiciones adecuadas de las instalaciones de ONE CONTACT INTERNACIONAL S.A.S.</p>
+        </div>
+    </div>
+
+    <!-- Slide 3: Marco normativo -->
+    <div class="slide-container" id="slide3">
+        <h2>2. Marco normativo aplicable</h2>
+        
+        <h3>Principales normas que regulan los arreglos locativos:</h3>
+        <ul>
+            <li><strong>Ley 820 de 2003:</strong> Establece las responsabilidades en arrendamientos</li>
+            <li><strong>Decreto 600 de 1993:</strong> Regula los requisitos de licencias para arreglos</li>
+            <li><strong>Ley 675 de 2001:</strong> Regula arreglos en áreas comunes de propiedades horizontales (aplicable a las sedes en edificios compartidos)</li>
+        </ul>
+        
+        <h3>Permisos y licencias:</h3>
+        <div class="highlight-box">
+            <p>Los arreglos locativos identificados en las inspecciones de ONE CONTACT <strong>no requieren licencia</strong> de construcción, ya que:</p>
+            <ul>
+                <li>No implican cambios estructurales</li>
+                <li>No modifican el uso de los espacios</li>
+                <li>Son reparaciones menores de mantenimiento</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 4: Responsabilidades -->
+    <div class="slide-container" id="slide4">
+        <h2>3. Responsabilidades en arreglos locativos</h2>
+        
+        <h3>Distribución de responsabilidades:</h3>
+        
+        <div class="two-column">
+            <div class="column">
+                <h4>Responsabilidad del propietario/arrendador:</h4>
+                <ul>
+                    <li>Filtraciones en techos (sede Bogotá)</li>
+                    <li>Reparaciones estructurales</li>
+                    <li>Problemas en redes principales (agua, electricidad)</li>
+                    <li>Fallas que afecten la habitabilidad básica</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h4>Responsabilidad de ONE CONTACT:</h4>
+                <ul>
+                    <li>Mantenimiento de mobiliario propio (sillas, lockers)</li>
+                    <li>Reparaciones por uso normal (cerraduras, enchufes)</li>
+                    <li>Mantenimiento de aires acondicionados</li>
+                    <li>Modificaciones internas menores (instalación de puertas)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="highlight-box">
+            <p><strong>Recomendación:</strong> Revisar los contratos de arrendamiento de ambas sedes para verificar cláusulas específicas sobre mantenimiento y arreglos locativos.</p>
+        </div>
+    </div>
+
+    <!-- Slide 5: Sede Barranquilla -->
+    <div class="slide-container" id="slide5">
+        <h2>4. Arreglos locativos sede Barranquilla</h2>
+        <p><strong>Ubicación:</strong> Carrera 67#48-07, Edificio Puerto Digital - Piso 2</p>
+        
+        <h3>Arreglos realizados - Abril 2025</h3>
+        
+        <div class="two-column">
+            <div class="column">
+                <div class="example-card">
+                    <div class="example-header">
+                        <h4>Oficina Gerencial</h4>
+                    </div>
+                    <div class="example-body">
+                        <p>Arreglos realizados:</p>
+                        <ul>
+                            <li>Reparación de rejilla de ventilación suelta</li>
+                            <li>Reparación de enchufe eléctrico</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <h4>Oficina de juntas</h4>
+                    </div>
+                    <div class="example-body">
+                        <p>Arreglos realizados:</p>
+                        <ul>
+                            <li>Reparación de cerradura en puerta</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column">
+                <div class="example-card">
+                    <div class="example-header">
+                        <h4>Oficina admin Selección</h4>
+                    </div>
+                    <div class="example-body">
+                        <p>Arreglos realizados:</p>
+                        <ul>
+                            <li>Colocación de puerta interna</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <h4>Baño de caballeros</h4>
+                    </div>
+                    <div class="example-body">
+                        <p>Arreglos realizados:</p>
+                        <ul>
+                            <li>Reparación de orinales</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="highlight-box">
+            <p>Los arreglos en la sede Barranquilla fueron ejecutados por <strong>JVP</strong>, completando exitosamente todas las intervenciones identificadas en la inspección de seguridad.</p>
+        </div>
+    </div>
+
+    <!-- Slide 6: Sede Bogotá -->
+    <div class="slide-container" id="slide6">
+        <h2>5. Arreglos locativos sede Bogotá</h2>
+        <p><strong>Ubicación:</strong> Carrera 7 #17-51 - Pisos 5, 1101 y 1102</p>
+        
+        <h3>Arreglos realizados - Abril 2025</h3>
+        
+        <div class="two-column">
+            <div class="column">
+                <div class="example-card">
+                    <div class="example-header">
+                        <h4>Formación - Piso 5</h4>
+                    </div>
+                    <div class="example-body">
+                        <p>Arreglos realizados:</p>
+                        <ul>
+                            <li>Retiro y cambio de sillas (30 sillas mensuales)</li>
+                            <li>Arreglo de chapa de puerta dañada</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <h4>Operación 1102</h4>
+                    </div>
+                    <div class="example-body">
+                        <p>Arreglos realizados:</p>
+                        <ul>
+                            <li>Arreglo de tomacorriente en la entrada</li>
+                            <li>Reparación del techo por filtraciones de goteras</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column">
+                <div class="example-card">
+                    <div class="example-header">
+                        <h4>Talento Humano</h4>
+                    </div>
+                    <div class="example-body">
+                        <p>Arreglos realizados:</p>
+                        <ul>
+                            <li>Mantenimiento a base de silla</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <h4>Operación 1101</h4>
+                    </div>
+                    <div class="example-body">
+                        <p>Arreglos realizados:</p>
+                        <ul>
+                            <li>Cambio de chapa de la puerta en oficina de marketing</li>
+                            <li>Mantenimiento de aires acondicionados</li>
+                            <li>Instalación de puertas y pasadores de lockers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="highlight-box">
+            <p>Los arreglos en la sede Bogotá fueron ejecutados por <strong>JVP</strong>, que completó todas las intervenciones planificadas, incluyendo la reparación prioritaria del techo en el piso 1102.</p>
+        </div>
+    </div>
+
+    <!-- Slide 7: Sede Medellín -->
+    <div class="slide-container" id="slide7">
+        <h2>6. Arreglos locativos sede Medellín</h2>
+        <p><strong>Ubicación:</strong> Carrera 52 #14-30 - Piso 1</p>
+        
+        <h3>Arreglos realizados - Abril 2025</h3>
+        
+        <div class="two-column">
+            <div class="column">
+                <div class="example-card">
+                    <div class="example-header">
+                        <h4>Puerta de Formación</h4>
+                    </div>
+                    <div class="example-body">
+                        <p>Arreglos realizados:</p>
+                        <ul>
+                            <li>Instalación y arreglo de puerta</li>
+                            <li>Mejoramiento del sistema de apertura y cierre</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <h4>Baños Hombres</h4>
+                    </div>
+                    <div class="example-body">
+                        <p>Arreglos realizados:</p>
+                        <ul>
+                            <li>Mantenimiento y reparación de orinales</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column">
+                <div class="example-card">
+                    <div class="example-header">
+                        <h4>Puertas Acceso a Patio</h4>
+                    </div>
+                    <div class="example-body">
+                        <p>Arreglos realizados:</p>
+                        <ul>
+                            <li>Revisión y cambio de cerradura</li>
+                            <li>Habilitación del acceso directo al patio</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="example-card" style="background-color: #f9f9f9; border: 1px dashed #ccc;">
+                    <div class="example-header" style="background-color: #6c757d;">
+                        <h4>Información de contratista</h4>
+                    </div>
+                    <div class="example-body">
+                        <p>A diferencia de las otras sedes:</p>
+                        <ul>
+                            <li>Trabajos realizados mediante <strong>cotización externa</strong></li>
+                            <li>Todos los arreglos fueron completados satisfactoriamente</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="highlight-box">
+            <p>Los arreglos en la sede de Medellín se enfocaron principalmente en mejoras de acceso y servicios sanitarios, mejorando la funcionalidad de las instalaciones y facilitando el movimiento entre espacios.</p>
+        </div>
+    </div>
+    
+    <!-- Slide 8: Plan de acción actualizado -->
+    <div class="slide-container" id="slide8">
+        <h2>7. Balance y plan de mantenimiento ONE CONTACT</h2>
+        
+        <h3>Resumen de arreglos realizados por sede:</h3>
+        
+        <table>
+            <tr>
+                <th>Sede</th>
+                <th>Cantidad de arreglos</th>
+                <th>Responsable</th>
+                <th>Estado</th>
+            </tr>
+            <tr>
+                <td>Barranquilla</td>
+                <td>5 arreglos</td>
+                <td>JVP</td>
+                <td>Completado</td>
+            </tr>
+            <tr>
+                <td>Bogotá</td>
+                <td>8 arreglos</td>
+                <td>JVP</td>
+                <td>Completado</td>
+            </tr>
+            <tr>
+                <td>Medellín</td>
+                <td>3 arreglos</td>
+                <td>Cotización externa</td>
+                <td>Completado</td>
+            </tr>
+        </table>
+        
+        <h3>Plan de mantenimiento preventivo recomendado:</h3>
+        <ul>
+            <li><strong>Inspecciones bimestrales</strong> en las tres sedes para identificar necesidades de arreglos locativos</li>
+            <li>Asignación de presupuesto para <strong>mantenimiento preventivo</strong> en áreas críticas identificadas:</li>
+            <ul>
+                <li>Sistemas sanitarios (orinales y baños)</li>
+                <li>Cerraduras y sistema de accesos</li>
+                <li>Instalaciones eléctricas</li>
+                <li>Mobiliario de alta rotación (especialmente sillas)</li>
+            </ul>
+            <li>Implementación de un <strong>sistema de reporte inmediato</strong> de necesidades de arreglos locativos</li>
+            <li>Mantenimientos programados para evitar el deterioro de mejoras realizadas</li>
+        </ul>
+        
+        <div class="highlight-box">
+            <p>El mantenimiento preventivo es más costo-efectivo que las reparaciones de emergencia. Los resultados de las inspecciones de abril 2025 muestran la eficacia del sistema de detección temprana y corrección oportuna de necesidades de arreglos locativos en las tres sedes.</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <h3>Preparado por:</h3>
+            <p>Área de Talento Humano</p>
+            <p style="font-style: italic;">ONE CONTACT INTERNACIONAL S.A.S.</p>
+        </div>
+    </div>
+
+    <footer>
+        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+            <img src="logo-onecontact.png" alt="ONE CONTACT - Grupo Migesa" style="max-width: 80px; height: auto; margin-right: 15px;" />
+            <h3 style="margin: 0;">ONE CONTACT INTERNACIONAL S.A.S.</h3>
+        </div>
+        <p>© 2025 ONE CONTACT INTERNACIONAL S.A.S. - Documento interno</p>
+    </footer>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 8;
+        
+        function updateSlideNumber() {
+            document.getElementById('slideNumber').textContent = `Diapositiva ${currentSlide} de ${totalSlides}`;
+        }
+        
+        function updateButtons() {
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            
+            // Update menu buttons
+            const menuButtons = document.querySelectorAll('.menu-btn');
+            menuButtons.forEach((btn, index) => {
+                if (index === currentSlide - 1) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        function showSlide(slideNumber) {
+            // Hide all slides
+            const slides = document.querySelectorAll('.slide-container');
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Show the current slide
+            currentSlide = slideNumber + 1;
+            document.getElementById(`slide${currentSlide}`).classList.add('active');
+            
+            updateSlideNumber();
+            updateButtons();
+        }
+        
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 1 && newSlide <= totalSlides) {
+                showSlide(newSlide - 1);
+            }
+        }
+        
+        // Initialize
+        updateSlideNumber();
+        updateButtons();
+    </script>
+</body>
+</html>
